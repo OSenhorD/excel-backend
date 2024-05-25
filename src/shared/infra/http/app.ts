@@ -7,10 +7,6 @@ import "express-async-errors"
 
 import "@shared/container"
 
-import { startConnection } from "@shared/infra/typeorm"
-
-startConnection()
-
 const app = express()
 
 app.use(express.json())
