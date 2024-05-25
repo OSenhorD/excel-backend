@@ -51,6 +51,10 @@ export const excelBreakFile = async (filename: string) => {
   }
 }
 
+export const excelGetListExcel = () => {
+  return readdirSync(`${tmpFolder}/uploads/import`)
+}
+
 export const excelGetListCsv = () => {
   return readdirSync(`${tmpFolder}/uploads/csv`)
 }
@@ -74,6 +78,10 @@ export const excelGetitems = (file: string) => {
     console.log(error)
     return []
   }
+}
+
+export const excelRemoveExcelFile = (file: string) => {
+  return rmSync(`${tmpFolder}/uploads/import/${file}`)
 }
 
 export const excelRemoveFile = (file: string) => {

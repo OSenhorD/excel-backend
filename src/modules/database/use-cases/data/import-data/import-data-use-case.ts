@@ -6,8 +6,6 @@ import { IStorageProvider } from "@shared/container/providers/storage-provider/i
 
 import { HttpResponse, ok } from "@shared/helpers"
 
-import { excelBreakFile } from "@shared/utils/excel"
-
 @injectable()
 export class ImportDataUseCase {
   constructor(
@@ -20,9 +18,7 @@ export class ImportDataUseCase {
   execute = async (filename: string): Promise<HttpResponse> => {
     if (!filename) return ok({})
 
-    await this._storageProvider.save(filename, `uploads/import`)
-
-    excelBreakFile(filename)
+    this._storageProvider.save(filename, `uploads/import`)
 
     return ok({})
   }

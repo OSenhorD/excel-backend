@@ -15,7 +15,7 @@ export class ListDataController {
       page: Number(page || 0),
       pageSize: Number(pageSize || 50),
       params: request.query as IParams,
-    }, request.user)
+    })
 
     return response.status(result.statusCode).json(result)
   }
