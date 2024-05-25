@@ -168,6 +168,22 @@ export class UserRepository implements IUserRepository {
     }
   }
 
+  distinct = async (column: string): Promise<HttpResponse<string[]>> => {
+    try {
+      const query = `
+        SELECT DISTINCT us."${column.toLowerCase()}"
+        FROM users AS us
+      `
+
+      const users: {}[] = await this._repository.query(query)
+
+      const items: string[] = users.map(item => item[column.toLowerCase()]).filter(item => item)
+      return ok(items)
+    } catch (error) {
+      return serverError(error, "UserRepository distinct")
+    }
+  }
+
   findByEmail = async (email: string): Promise<HttpResponse<IUserByEmailRes>> => {
     try {
       let query = this._repository

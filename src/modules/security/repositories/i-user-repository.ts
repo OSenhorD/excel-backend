@@ -22,6 +22,8 @@ export interface IUserRepository {
   update(id: string, item: IUserUpdateParam, user: IUser): Promise<HttpResponse<IUserUpdateRes>>
   delete(id: string, user: IUser): Promise<HttpResponse>
 
+  distinct(column: string): Promise<HttpResponse<string[]>>
+
   findByEmail(email: string): Promise<HttpResponse<IUserByEmailRes>>
 
   updatePassword(id: string, password: string, user: IUser, force?: boolean): Promise<HttpResponse>

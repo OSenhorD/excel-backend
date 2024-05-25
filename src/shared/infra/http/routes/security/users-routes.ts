@@ -9,11 +9,13 @@ import { ListUserController } from "@modules/security/use-cases/user/list-user/l
 import { CreateUserController } from "@modules/security/use-cases/user/create-user/create-user-controller"
 import { UpdateUserController } from "@modules/security/use-cases/user/update-user/update-user-controller"
 import { DeleteUserController } from "@modules/security/use-cases/user/delete-user/delete-user-controller"
+import { DistinctUserController } from "@modules/security/use-cases/user/distinct-user/distinct-user-controller"
 
 import { upload } from "@config/upload"
 
 const securityUsersRoutes = Router()
 
+securityUsersRoutes.get("/distinct/:column", new DistinctUserController().handle)
 securityUsersRoutes.get("/:id", new GetUserController().handle)
 securityUsersRoutes.get("/", new ListUserController().handle)
 securityUsersRoutes.post("/", upload.single("avatar"), new CreateUserController().handle)
