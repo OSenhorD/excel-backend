@@ -57,23 +57,9 @@ export class DataRepository implements IDataRepository {
       if (search) {
         query = query
           .andWhere(new Brackets(qb => {
-            qb.where("CAST(dat.CODCOLIGADA AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.FILIAL_NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.ANOCOMP AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.MESCOMP AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.CHAPA AS VARCHAR) ilike :search", { search: `%${search}%` })
+            qb.where("CAST(dat.CHAPA AS VARCHAR) ilike :search", { search: `%${search}%` })
               .orWhere("CAST(dat.NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
               .orWhere("CAST(dat.CODCCUSTO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.COLIGADA_NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.CCUSTO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.SITUACAO_NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.DATAADMISSAO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.DATADEMISSAO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.EVENTO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.CODCONTADEBITO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.DEBITO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.CLASSIF_FUNCIONARIO AS VARCHAR) ilike :search", { search: `%${search}%` })
-              .orWhere("CAST(dat.VALOR AS VARCHAR) ilike :search", { search: `%${search}%` })
           }))
       }
 
