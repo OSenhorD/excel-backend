@@ -66,6 +66,22 @@ export class DataRepository implements IDataRepository {
     }
   }
 
+  distinct = async (column: string): Promise<HttpResponse<string[]>> => {
+    try {
+      const query = `
+        SELECT DISTINCT d."${column.toUpperCase()}"
+        FROM data AS d
+      `
+
+      const data: {}[] = await this._repository.query(query)
+
+      const items: string[] = data.map(item => item[column.toUpperCase()]).filter(item => item)
+      return ok(items)
+    } catch (error) {
+      return serverError(error, "DataRepository distinct")
+    }
+  }
+
   process = async (items: Omit<IDataDTO, "id">[]): Promise<HttpResponse<{ ok: number, error: number, total: number }>> => {
     const result = { ok: 0, error: 0, total: items.length }
 

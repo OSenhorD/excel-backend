@@ -4,6 +4,7 @@ import { ListDataController } from "@modules/database/use-cases/data/list-data/l
 import { ExportDataController } from "@modules/database/use-cases/data/export-data/export-data-controller"
 import { ImportDataController } from "@modules/database/use-cases/data/import-data/import-data-controller"
 import { ProcessDataController } from "@modules/database/use-cases/data/process-data/process-data-controller"
+import { DistinctDataController } from "@modules/database/use-cases/data/distinct-data/distinct-data-controller"
 
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensure-admin"
 
@@ -31,6 +32,7 @@ const upload = multer({ storage, limits, fileFilter })
 const databaseDataRoutes = Router()
 
 databaseDataRoutes.get("/process", [ensureAdmin], new ProcessDataController().handle)
+databaseDataRoutes.get("/distinct/:column", new DistinctDataController().handle)
 databaseDataRoutes.get("/", new ListDataController().handle)
 databaseDataRoutes.post("/export", new ExportDataController().handle)
 databaseDataRoutes.post("/import", upload.single("excel"), new ImportDataController().handle)
