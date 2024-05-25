@@ -5,7 +5,7 @@ import { existsSync, mkdirSync } from "fs"
 
 export const tmpFolder = resolve(__dirname, "..", "..", "tmp")
 
-const storage = multer.diskStorage({
+export const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (!existsSync(tmpFolder)) mkdirSync(tmpFolder)
     cb(null, tmpFolder)
@@ -24,18 +24,14 @@ const limits = {
   fieldNameSize: 100,
 }
 
-const allowedMmimetypes = [
+const allowedMimetypes = [
   "image/png",
   "image/jpg",
   "image/jpeg",
 ]
 
 const fileFilter = (_: any, { mimetype }: Express.Multer.File, cb: multer.FileFilterCallback): void => {
-  cb(null, allowedMmimetypes.includes(mimetype))
+  cb(null, allowedMimetypes.includes(mimetype))
 }
 
 export const upload = multer({ storage, limits, fileFilter })
-
-export const uploadMultipleFiles = (files: number = 2, filter = fileFilter) => {
-  return multer({ storage, limits: { ...limits, files }, fileFilter: filter })
-}
