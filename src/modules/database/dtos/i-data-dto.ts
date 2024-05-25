@@ -1,4 +1,4 @@
-interface IDataDTO {
+export interface IDataDTO {
   id: string
   CODCOLIGADA: string
   FILIAL_NOME: string

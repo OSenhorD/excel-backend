@@ -1,9 +1,10 @@
-import { IDataListRes } from "@modules/database/dtos/i-data-dto"
+import { IDataDTO, IDataListRes } from "@modules/database/dtos/i-data-dto"
 
-import { HttpResponseList } from "@shared/helpers"
+import { HttpResponse, HttpResponseList } from "@shared/helpers"
 
-import { ISearch, IUser } from "@interfaces/shared"
+import { ISearch } from "@interfaces/shared"
 
 export interface IDataRepository {
-  list(data: ISearch, user: IUser): Promise<HttpResponseList<IDataListRes[]>>
+  list(data: ISearch): Promise<HttpResponseList<IDataListRes[]>>
+  process(items: Omit<IDataDTO, "id">[]): Promise<HttpResponse<{ ok: number, error: number, total: number }>>
 }

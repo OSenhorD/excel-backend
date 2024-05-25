@@ -14,13 +14,13 @@ export class ListDataUseCase {
     private readonly _dataRepository: IDataRepository,
   ) { }
 
-  execute = async (page: ISearch, user: IUser): Promise<HttpResponseList<IDataListRes[]>> => {
+  execute = async (page: ISearch): Promise<HttpResponseList<IDataListRes[]>> => {
     const items = await this._dataRepository.list({
       search: page?.search,
       page: page?.page,
       pageSize: page?.pageSize,
       params: page?.params,
-    }, user)
+    })
     if (items.statusCode != 200) return items
 
     return items

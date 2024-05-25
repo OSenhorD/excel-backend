@@ -64,12 +64,6 @@ export class Data {
   @Column({ name: "VALOR", type: "numeric", nullable: true })
   VALOR: number
 
-  @Column({ name: "telephone", nullable: true })
-  telephone: string
-
-  @Column({ name: "date", type: "date" })
-  date: Date
-
   @CreateDateColumn({ name: "created_at", nullable: true, select: false })
   createdAt?: Date
 
