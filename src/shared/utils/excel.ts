@@ -63,7 +63,7 @@ export const excelGetListCsv = () => {
 export const excelGetitems = (file: string) => {
   try {
     const data = readFileSync(`${tmpFolder}/uploads/csv/${file}`).toString("utf-8").split("\n")
-    const cols = data.splice(0, 1)[0].split("")
+    const cols = data.splice(0, 1)[0].split(";")
 
     const items = data.map(item => {
       const obj: any = {}

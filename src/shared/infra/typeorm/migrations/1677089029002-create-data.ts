@@ -110,6 +110,12 @@ export class CreateData1677089029002 implements MigrationInterface {
             default: "now()",
           },
         ],
+        indices: [
+          {
+            name: "data_select_basic",
+            columnNames: ["CHAPA", "NOME", "CODCCUSTO"],
+          },
+        ],
       })
     )
   }
