@@ -54,8 +54,6 @@ export class UserRepository implements IUserRepository {
           `use.isActive as "isActive"`,
         ])
 
-      const count = await query.getCount()
-
       query = insertWhereParams(query, validParams)
 
       if (search) {
@@ -66,6 +64,8 @@ export class UserRepository implements IUserRepository {
               .orWhere("CAST(use.isActive AS VARCHAR) ilike :search", { search: `%${search}%` })
           }))
       }
+
+      const count = await query.getCount()
 
       query = query
         .addOrderBy("use.isActive", "DESC")

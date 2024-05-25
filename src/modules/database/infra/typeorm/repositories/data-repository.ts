@@ -1,4 +1,4 @@
-import { Repository } from "typeorm"
+import { Brackets, Repository } from "typeorm"
 
 import { Data } from "@modules/database/infra/typeorm/entities/data"
 
@@ -25,7 +25,7 @@ import { insertWhereParams } from "@utils/typeorm-utils"
 export class DataRepository implements IDataRepository {
   private readonly _repository: Repository<Data> = AppDataSource.getRepository(Data)
 
-  list = async ({ page, pageSize, params }: ISearch): Promise<HttpResponseList<IDataListRes[]>> => {
+  list = async ({ search, page, pageSize, params }: ISearch): Promise<HttpResponseList<IDataListRes[]>> => {
     const validParams = getValidParams(params)
 
     try {
@@ -53,6 +53,29 @@ export class DataRepository implements IDataRepository {
         ])
 
       query = insertWhereParams(query, validParams)
+
+      if (search) {
+        query = query
+          .andWhere(new Brackets(qb => {
+            qb.where("CAST(use.CODCOLIGADA AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.FILIAL_NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.ANOCOMP AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.MESCOMP AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.CHAPA AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.CODCCUSTO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.COLIGADA_NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.CCUSTO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.SITUACAO_NOME AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.DATAADMISSAO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.DATADEMISSAO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.EVENTO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.CODCONTADEBITO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.DEBITO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.CLASSIF_FUNCIONARIO AS VARCHAR) ilike :search", { search: `%${search}%` })
+              .orWhere("CAST(use.VALOR AS VARCHAR) ilike :search", { search: `%${search}%` })
+          }))
+      }
 
       const count = await query.getCount()
 
