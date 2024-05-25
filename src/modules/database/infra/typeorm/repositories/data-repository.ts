@@ -19,10 +19,15 @@ import {
 
 import { ISearch } from "@interfaces/shared"
 
+import { getValidParams } from "@utils/utils"
+import { insertWhereParams } from "@utils/typeorm-utils"
+
 export class DataRepository implements IDataRepository {
   private readonly _repository: Repository<Data> = AppDataSource.getRepository(Data)
 
   list = async ({ page, pageSize, params }: ISearch): Promise<HttpResponseList<IDataListRes[]>> => {
+    const validParams = getValidParams(params)
+
     try {
       let query = this._repository
         .createQueryBuilder("dat")
@@ -46,6 +51,8 @@ export class DataRepository implements IDataRepository {
           `dat.CLASSIF_FUNCIONARIO as "CLASSIF_FUNCIONARIO"`,
           `dat.VALOR as "VALOR"`,
         ])
+
+      query = insertWhereParams(query, validParams)
 
       const count = await query.getCount()
 

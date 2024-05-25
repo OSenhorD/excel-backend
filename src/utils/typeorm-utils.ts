@@ -20,9 +20,9 @@ export const insertWhereParams = (query: SelectQueryBuilder<any>, validParams: I
 
   // Inclusão do operador IN
   Object.keys(validParams)
-    .filter(key => typeof validParams[key] == "string" && `${validParams[key]}`.includes(","))
+    .filter(key => typeof validParams[key] == "string" && `${validParams[key]}`.includes(";"))
     .forEach(key => {
-      const values = `${validParams[key]}`.split(",")
+      const values = `${validParams[key]}`.split(";")
       validParams[key] = In(values) as any
     })
 
@@ -33,7 +33,7 @@ export const insertWhereParams = (query: SelectQueryBuilder<any>, validParams: I
 
   // Inclusão do operador NOTIN
   Object.keys(validParams)
-    .filter(key => typeof validParams[key] == "string" && `${validParams[key]}`.startsWith("-") && !`${validParams[key]}`.includes(","))
+    .filter(key => typeof validParams[key] == "string" && `${validParams[key]}`.startsWith("-") && !`${validParams[key]}`.includes(";"))
     .forEach(key => {
       const values = `${validParams[key]}`.slice(1)
       validParams[key] = Not(values) as any
@@ -41,9 +41,9 @@ export const insertWhereParams = (query: SelectQueryBuilder<any>, validParams: I
 
   // Inclusão do operador NOTIN em um array
   Object.keys(validParams)
-    .filter(key => typeof validParams[key] == "string" && `${validParams[key]}`.startsWith("-") && `${validParams[key]}`.includes(","))
+    .filter(key => typeof validParams[key] == "string" && `${validParams[key]}`.startsWith("-") && `${validParams[key]}`.includes(";"))
     .forEach(key => {
-      const values = `${validParams[key]}`.slice(1).split(",")
+      const values = `${validParams[key]}`.slice(1).split(";")
       validParams[key] = Not(In(values)) as any
     })
 
