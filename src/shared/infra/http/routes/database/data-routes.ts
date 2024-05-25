@@ -33,8 +33,8 @@ const databaseDataRoutes = Router()
 
 databaseDataRoutes.get("/process", [ensureAdmin], new ProcessDataController().handle)
 databaseDataRoutes.get("/distinct/:column", new DistinctDataController().handle)
+databaseDataRoutes.get("/export", new ExportDataController().handle)
 databaseDataRoutes.get("/", new ListDataController().handle)
-databaseDataRoutes.post("/export", new ExportDataController().handle)
 databaseDataRoutes.post("/import", upload.single("excel"), new ImportDataController().handle)
 
 export { databaseDataRoutes }

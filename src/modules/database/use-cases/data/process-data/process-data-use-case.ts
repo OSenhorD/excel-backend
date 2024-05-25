@@ -21,7 +21,7 @@ export class ProcessDataUseCase {
     const files = excelGetListCsv()
     if (files.length == 0) return ok({})
 
-    const count = 300
+    const count = files.length < 300 ? files.length : 300
     console.log(`ProcessDataUseCase: Iniciando processamento de ${count} arquivos de um total de ${files.length}`)
 
     for await (const [idx, file] of files.slice(0, count).entries()) {

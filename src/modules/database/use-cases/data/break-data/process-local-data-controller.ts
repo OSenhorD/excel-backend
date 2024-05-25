@@ -8,15 +8,23 @@ import {
 
 export class BreakLocalDataController {
   handle = async (): Promise<HttpResponse> => {
-    const list = excelGetListExcel()
-    if (list.length == 0) return
+    try {
+      const list = excelGetListExcel()
+      if (list.length == 0) return
 
-    console.log(`BreakLocalDataController: Iniciando processamento do excel ${list[0]}`)
+      console.log(`BreakLocalDataController: Iniciando processamento do excel ${list[0]}`)
 
-    await excelBreakFile(list[0])
-    excelRemoveExcelFile(list[0])
+      await excelBreakFile(list[0])
 
-    console.log(`BreakLocalDataController: Processamento do excel ${list[0]} concluido`)
+      console.log(`BreakLocalDataController: Exclusão do excel ${list[0]}`)
+      excelRemoveExcelFile(list[0])
+
+      console.log(`BreakLocalDataController: Processamento do excel ${list[0]} concluido`)
+    } catch (error) {
+      console.log("BreakLocalDataController error")
+      console.log(error)
+    }
+
     return ok({})
   }
 }

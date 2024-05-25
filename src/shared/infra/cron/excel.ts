@@ -5,7 +5,6 @@ import { BreakLocalDataController } from "@modules/database/use-cases/data/break
 
 export const start = () => {
   cron.schedule("* * * * *", async () => {
-    console.log("[cron]: Excel - Processando arquivos da importação!")
     await new ProcessLocalDataController().handle()
 
     await new ProcessLocalDataController().handle()
