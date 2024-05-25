@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  database:
+    image: postgres
+    container_name: database-excel
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=excel-user
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=excel-db
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
+
+networks:
+  default:
+    driver: bridge

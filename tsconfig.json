@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "@errors/*": ["./errors/*"],
+      "@utils/*": ["./utils/*"],
+      "@modules/*": ["./modules/*"],
+      "@interfaces/*": ["./interfaces/*"],
+      "@config/*": ["./config/*"],
+      "@shared/*": ["./shared/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

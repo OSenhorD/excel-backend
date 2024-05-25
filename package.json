@@ -1,0 +1,48 @@
+{
+  "name": "excel",
+  "version": "0.0.1",
+  "private": true,
+  "author": "David Marques",
+  "license": "UNLICENSED",
+  "main": "./dist/shared/infra/http/server.js",
+  "description": "Backend da aplicação Excel",
+  "scripts": {
+    "build": "rm -rf ./dist; ./node_modules/.bin/tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "start": "npx ts-node -r tsconfig-paths/register dist/shared/infra/http/server.js",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/shared/infra/typeorm/index.ts",
+    "seed:seeder": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed",
+    "test": "NODE_ENV=test --runInBand --detectOpenHandles"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.11.11",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-errors": "^3.1.1",
+    "handlebars": "^4.7.8",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
+    "pg": "^8.11.5",
+    "reflect-metadata": "^0.2.2",
+    "tscpaths": "^0.0.9",
+    "tsyringe": "^4.8.0",
+    "typeorm": "^0.3.20",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.12.12",
+    "@types/nodemailer": "^6.4.15",
+    "@types/uuid": "^9.0.8",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.5"
+  }
+}
