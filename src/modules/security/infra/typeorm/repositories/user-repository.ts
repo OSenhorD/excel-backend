@@ -35,12 +35,12 @@ import { getValidParams } from "@utils/utils"
 
 import { insertWhereParams } from "@utils/typeorm-utils"
 
-import { ISearch, IUser } from "@interfaces/shared"
+import { ISearch } from "@interfaces/shared"
 
 export class UserRepository implements IUserRepository {
   private readonly _repository: Repository<User> = AppDataSource.getRepository(User)
 
-  list = async ({ search, page, pageSize, params }: ISearch, user: IUser): Promise<HttpResponseList<IUserListRes[]>> => {
+  list = async ({ search, page, pageSize, params }: ISearch): Promise<HttpResponseList<IUserListRes[]>> => {
     const validParams = getValidParams(params)
 
     try {
@@ -84,7 +84,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  get = async (id: string, user: IUser, force?: boolean): Promise<HttpResponse<IUserGetRes>> => {
+  get = async (id: string): Promise<HttpResponse<IUserGetRes>> => {
     try {
       let query = this._repository
         .createQueryBuilder("use")
@@ -107,7 +107,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  create = async (item: IUserCreateParam, user: IUser): Promise<HttpResponse<IUserCreateRes>> => {
+  create = async (item: IUserCreateParam): Promise<HttpResponse<IUserCreateRes>> => {
     try {
       const passwordHash = await hash(item?.password, 8)
 
@@ -129,9 +129,9 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  update = async (id: string, item: IUserUpdateParam, user: IUser): Promise<HttpResponse<IUserUpdateRes>> => {
+  update = async (id: string, item: IUserUpdateParam): Promise<HttpResponse<IUserUpdateRes>> => {
     try {
-      const data = await this._hasId(id, user)
+      const data = await this._hasId(id)
       if (!data) return notFound()
 
       const newItem = this._repository.create({
@@ -151,9 +151,9 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  delete = async (id: string, user: IUser): Promise<HttpResponse> => {
+  delete = async (id: string): Promise<HttpResponse> => {
     try {
-      const has = await this._hasId(id, user)
+      const has = await this._hasId(id)
       if (has) return noContent()
 
       await this._repository.delete(id)
@@ -208,9 +208,9 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  updatePassword = async (id: string, password: string, user: IUser, force?: boolean): Promise<HttpResponse> => {
+  updatePassword = async (id: string, password: string): Promise<HttpResponse> => {
     try {
-      const item = await this._hasId(id, user, force)
+      const item = await this._hasId(id)
       if (!item) return notFound()
 
       const passwordHash = await hash(password, 8)
@@ -223,9 +223,9 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  updateAvatar = async (id: string, avatar: string, user: IUser): Promise<HttpResponse<IUserUpdateAvatarRes>> => {
+  updateAvatar = async (id: string, avatar: string): Promise<HttpResponse<IUserUpdateAvatarRes>> => {
     try {
-      const item = await this._hasId(id, user)
+      const item = await this._hasId(id)
       if (!item) return notFound()
 
       const newItem = this._repository.create({ id, avatar })
@@ -237,9 +237,9 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  updateBase = async (id: string, name: string, email: string, user: IUser): Promise<HttpResponse<IUserUpdateBaseRes>> => {
+  updateBase = async (id: string, name: string, email: string): Promise<HttpResponse<IUserUpdateBaseRes>> => {
     try {
-      const item = await this._hasId(id, user)
+      const item = await this._hasId(id)
       if (!item) return notFound()
 
       const newItem = this._repository.create({ id, name, email })
@@ -251,7 +251,7 @@ export class UserRepository implements IUserRepository {
     }
   }
 
-  private _hasId = async (id: string, user: IUser, force?: boolean): Promise<boolean> => {
+  private _hasId = async (id: string): Promise<boolean> => {
     try {
       const data = await this._repository
         .createQueryBuilder("use")

@@ -8,7 +8,7 @@ export class GetUserController {
   handle = async (request: Request, response: Response): Promise<Response> => {
     const { id } = request.params
 
-    const result = await container.resolve(GetUserUseCase).execute(id, request.user)
+    const result = await container.resolve(GetUserUseCase).execute(id)
 
     return response.status(result.statusCode).json(result)
   }

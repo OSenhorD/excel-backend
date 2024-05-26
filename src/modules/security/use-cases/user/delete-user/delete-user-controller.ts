@@ -8,7 +8,7 @@ export class DeleteUserController {
   handle = async (request: Request, response: Response): Promise<Response> => {
     const { id } = request.params
 
-    const result = await container.resolve(DeleteUserUseCase).execute(id, request.user)
+    const result = await container.resolve(DeleteUserUseCase).execute(id)
 
     return response.status(result.statusCode).send()
   }

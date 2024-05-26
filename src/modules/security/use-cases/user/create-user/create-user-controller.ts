@@ -19,7 +19,7 @@ export class CreateUserController {
       avatar: request.file?.filename || null,
       isAdmin: `${body?.isAdmin || false}` == "true",
       isActive: `${body?.isActive || false}` == "true",
-    }, request.user)
+    })
 
     return response.status(result.statusCode).json(result)
   }

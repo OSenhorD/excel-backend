@@ -9,7 +9,7 @@ export class UpdatePasswordUserController {
     const { id } = request.params
     const { password } = request.body
 
-    const result = await container.resolve(UpdatePasswordUserUseCase).execute(id, password, request.user)
+    const result = await container.resolve(UpdatePasswordUserUseCase).execute(id, password)
 
     return response.status(result.statusCode).json(result)
   }

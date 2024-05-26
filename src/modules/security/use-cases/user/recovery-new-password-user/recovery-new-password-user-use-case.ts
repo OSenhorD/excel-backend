@@ -34,10 +34,10 @@ export class RecoveryNewPasswordUserUseCase {
 
       await this._userTokenRepository.deleteByUserId(userId)
 
-      const result = await this._userRepository.updatePassword(userId, password, null, true)
+      const result = await this._userRepository.updatePassword(userId, password)
       if (result.statusCode != 200) return result
 
-      const user = await this._userRepository.get(userId, null)
+      const user = await this._userRepository.get(userId)
       if (user.statusCode != 200) return user
 
       this._mailProvider.sendMail({

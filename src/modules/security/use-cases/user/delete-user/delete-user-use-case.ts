@@ -4,8 +4,6 @@ import { IUserRepository } from "@modules/security/repositories/i-user-repositor
 
 import { HttpResponse } from "@shared/helpers"
 
-import { IUser } from "@interfaces/shared"
-
 @injectable()
 export class DeleteUserUseCase {
   constructor(
@@ -13,8 +11,8 @@ export class DeleteUserUseCase {
     private readonly _userRepository: IUserRepository,
   ) { }
 
-  execute = async (id: string, user: IUser): Promise<HttpResponse> => {
-    const result = await this._userRepository.delete(id, user)
+  execute = async (id: string): Promise<HttpResponse> => {
+    const result = await this._userRepository.delete(id)
     if (result.statusCode != 204) return result
 
     return result

@@ -9,7 +9,7 @@ export class UpdateBaseUserController {
     const { id } = request.params
     const { name, email } = request.body
 
-    const result = await container.resolve(UpdateBaseUserUseCase).execute(id, name, email, request.user)
+    const result = await container.resolve(UpdateBaseUserUseCase).execute(id, name, email)
 
     return response.status(result.statusCode).json(result)
   }

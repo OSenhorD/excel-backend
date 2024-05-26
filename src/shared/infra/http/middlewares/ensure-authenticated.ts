@@ -27,7 +27,7 @@ export const ensureAuthenticated = async (request: Request, response: Response, 
 
     const { sub: userId } = verify(token, auth.token_secret) as { sub: string }
 
-    const currentUser = await new UserRepository().get(userId, null, true)
+    const currentUser = await new UserRepository().get(userId)
     if (currentUser.statusCode != 200) throw authError(new Error(messages.user.not_found))
 
     const currentToken = await new UserTokenRepository().isValidToken(userId, token, dateProvider.now())

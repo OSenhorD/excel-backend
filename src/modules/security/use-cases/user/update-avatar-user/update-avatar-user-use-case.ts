@@ -9,8 +9,6 @@ import { IStorageProvider } from "@shared/container/providers/storage-provider/i
 
 import configImage from "@config/image"
 
-import { IUser } from "@interfaces/shared"
-
 @injectable()
 export class UpdateAvatarUserUseCase {
   constructor(
@@ -20,11 +18,11 @@ export class UpdateAvatarUserUseCase {
     private readonly _storageProvider: IStorageProvider,
   ) { }
 
-  execute = async (id: string, avatar: string, user: IUser): Promise<HttpResponse<IUserUpdateAvatarRes>> => {
-    const oldUser = await this._userRepository.get(id, user)
+  execute = async (id: string, avatar: string): Promise<HttpResponse<IUserUpdateAvatarRes>> => {
+    const oldUser = await this._userRepository.get(id)
     if (oldUser.statusCode != 200) return oldUser
 
-    const newUser = await this._userRepository.updateAvatar(id, avatar, user)
+    const newUser = await this._userRepository.updateAvatar(id, avatar)
     if (newUser.statusCode != 200) return newUser
 
     if (oldUser.data.avatar && newUser.data.avatar != oldUser.data.avatar) {

@@ -6,7 +6,6 @@ import { IUserRepository } from "@modules/security/repositories/i-user-repositor
 import { HttpResponse } from "@shared/helpers"
 
 import { IStorageProvider } from "@shared/container/providers/storage-provider/i-storage-provider"
-import { IUser } from "@interfaces/shared"
 
 @injectable()
 export class GetUserUseCase {
@@ -17,8 +16,8 @@ export class GetUserUseCase {
     private readonly _storageProvider: IStorageProvider,
   ) { }
 
-  execute = async (id: string, user: IUser): Promise<HttpResponse<IUserGetRes>> => {
-    const userData = await this._userRepository.get(id, user)
+  execute = async (id: string): Promise<HttpResponse<IUserGetRes>> => {
+    const userData = await this._userRepository.get(id)
     if (userData.statusCode != 200) return userData
 
     userData.data.avatar = !userData.data?.avatar ? null : `${this._storageProvider.url}/uploads/avatar/${userData.data.avatar}`

@@ -8,7 +8,7 @@ export class UpdateAvatarUserController {
   handle = async (request: Request, response: Response): Promise<Response> => {
     const { id } = request.params
 
-    const result = await container.resolve(UpdateAvatarUserUseCase).execute(id, request.file?.filename || null, request.user)
+    const result = await container.resolve(UpdateAvatarUserUseCase).execute(id, request.file?.filename || null)
 
     return response.status(result.statusCode).json(result)
   }

@@ -7,8 +7,6 @@ import { HttpResponse } from "@shared/helpers"
 
 import { IStorageProvider } from "@shared/container/providers/storage-provider/i-storage-provider"
 
-import { IUser } from "@interfaces/shared"
-
 @injectable()
 export class CreateUserUseCase {
   constructor(
@@ -18,7 +16,7 @@ export class CreateUserUseCase {
     private readonly _storageProvider: IStorageProvider,
   ) { }
 
-  execute = async (body: IUserCreateParam, user: IUser): Promise<HttpResponse<IUserCreateRes>> => {
+  execute = async (body: IUserCreateParam): Promise<HttpResponse<IUserCreateRes>> => {
     const newUser = await this._userRepository.create({
       name: body?.name,
       email: body?.email,
@@ -26,7 +24,7 @@ export class CreateUserUseCase {
       avatar: body?.avatar,
       isAdmin: body?.isAdmin,
       isActive: body?.isActive,
-    }, user)
+    })
     if (newUser.statusCode != 200) return newUser
 
     if (newUser?.data?.avatar) {

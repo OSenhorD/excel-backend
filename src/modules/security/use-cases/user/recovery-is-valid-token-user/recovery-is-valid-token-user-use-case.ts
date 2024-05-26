@@ -34,7 +34,7 @@ export class RecoveryIsValidTokenUserUseCase {
 
       const { sub: userId } = verify(token, auth.token_recovery_secret) as { sub: string }
 
-      const currentUser = await this._userRepository.get(userId, null)
+      const currentUser = await this._userRepository.get(userId)
       if (currentUser.statusCode != 200) {
         throw notFound(messages.user.not_found)
       }

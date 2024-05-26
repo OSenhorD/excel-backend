@@ -4,8 +4,6 @@ import { IUserRepository } from "@modules/security/repositories/i-user-repositor
 
 import { HttpResponse } from "@shared/helpers"
 
-import { IUser } from "@interfaces/shared"
-
 @injectable()
 export class UpdatePasswordUserUseCase {
   constructor(
@@ -13,8 +11,8 @@ export class UpdatePasswordUserUseCase {
     private readonly _userRepository: IUserRepository,
   ) { }
 
-  execute = async (id: string, password: string, user: IUser): Promise<HttpResponse> => {
-    const result = await this._userRepository.updatePassword(id, password, user)
+  execute = async (id: string, password: string): Promise<HttpResponse> => {
+    const result = await this._userRepository.updatePassword(id, password)
     if (result.statusCode != 200) return result
 
     return result

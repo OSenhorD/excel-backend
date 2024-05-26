@@ -12,21 +12,21 @@ import {
 
 import { HttpResponse, HttpResponseList } from "@shared/helpers"
 
-import { ISearch, IUser } from "@interfaces/shared"
+import { ISearch } from "@interfaces/shared"
 
 export interface IUserRepository {
-  list(data: ISearch, user: IUser): Promise<HttpResponseList<IUserListRes[]>>
-  get(id: string, user: IUser, force?: boolean): Promise<HttpResponse<IUserGetRes>>
+  list(data: ISearch): Promise<HttpResponseList<IUserListRes[]>>
+  get(id: string): Promise<HttpResponse<IUserGetRes>>
 
-  create(item: IUserCreateParam, user: IUser): Promise<HttpResponse<IUserCreateRes>>
-  update(id: string, item: IUserUpdateParam, user: IUser): Promise<HttpResponse<IUserUpdateRes>>
-  delete(id: string, user: IUser): Promise<HttpResponse>
+  create(item: IUserCreateParam): Promise<HttpResponse<IUserCreateRes>>
+  update(id: string, item: IUserUpdateParam): Promise<HttpResponse<IUserUpdateRes>>
+  delete(id: string): Promise<HttpResponse>
 
   distinct(column: string): Promise<HttpResponse<string[]>>
 
   findByEmail(email: string): Promise<HttpResponse<IUserByEmailRes>>
 
-  updatePassword(id: string, password: string, user: IUser, force?: boolean): Promise<HttpResponse>
-  updateAvatar(id: string, avatar: string, user: IUser): Promise<HttpResponse<IUserUpdateAvatarRes>>
-  updateBase(id: string, name: string, email: string, user: IUser): Promise<HttpResponse<IUserUpdateBaseRes>>
+  updatePassword(id: string, password: string): Promise<HttpResponse>
+  updateAvatar(id: string, avatar: string): Promise<HttpResponse<IUserUpdateAvatarRes>>
+  updateBase(id: string, name: string, email: string): Promise<HttpResponse<IUserUpdateBaseRes>>
 }
