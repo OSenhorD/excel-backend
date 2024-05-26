@@ -153,9 +153,6 @@ export class UserRepository implements IUserRepository {
 
   delete = async (id: string): Promise<HttpResponse> => {
     try {
-      const has = await this._hasId(id)
-      if (has) return noContent()
-
       await this._repository.delete(id)
 
       return noContent()
