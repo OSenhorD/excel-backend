@@ -17,7 +17,9 @@ export class SmtpMailProvider implements IMailProvider {
   constructor() {
     const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env
     if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
-      throw new Error("Parâmetros para envio de e-mail não preenchidos")
+      console.log("Parâmetros para envio de e-mail não preenchidos")
+      return
+      // throw new Error("Parâmetros para envio de e-mail não preenchidos")
     }
 
     this.client = createTransport({

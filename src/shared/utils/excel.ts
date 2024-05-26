@@ -38,9 +38,10 @@ export const excelBreakFile = async (filename: string) => {
         const text = `${cols.join(";")}\n` + `${content.map(ctt => {
           return ctt.map((e, idxV) => {
             const key = Object.keys(colsDate).find(key => colsDate[key] == idxV)
-            return key && colsDate[key] >= 0 ? e.toISOString().split("T")[0] : e
+            return e && key && colsDate[key] >= 0 ? e.toISOString().split("T")[0] : e
           }).join(";")
         }).join("\n")}`
+
         writeFileSync(`${tmpFolder}/uploads/csv/${idx}-${filename}.csv`, text)
       }
     }

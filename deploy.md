@@ -41,8 +41,8 @@ $ sudo vim /opt/excel/.env
 Insira o seguinte conteúdo:
 
 ```yml
-APP_API_URL=https://apiexcel.davidmarques.com.br
-APP_FRONT_URL=https://excel.davidmarques.com.br
+APP_API_URL=https://api.cubo57.cloud
+APP_FRONT_URL=https://cubo57.cloud
 PORT=5500
 ```
 
@@ -115,7 +115,7 @@ $ netstat -tulpan | grep 5500
 1- Criar arquivo de configuração Nginx:
 
 ```yml
-$ sudo vim /etc/nginx/sites-available/apiexcel.davidmarques.com.br
+$ sudo vim /etc/nginx/sites-available/api.cubo57.cloud
 ```
 
 Insira o seguinte conteúdo:
@@ -125,7 +125,7 @@ server {
   listen 80;
   listen [::]:80;
 
-  server_name apiexcel.davidmarques.com.br;
+  server_name api.cubo57.cloud;
 
   location / {
     proxy_pass http://localhost:5500;
@@ -136,7 +136,7 @@ server {
 2- Criar link simbólico
 
 ```yml
-$ sudo ln -s /etc/nginx/sites-available/apiexcel.davidmarques.com.br /etc/nginx/sites-enabled/
+$ sudo ln -s /etc/nginx/sites-available/api.cubo57.cloud /etc/nginx/sites-enabled/
 ```
 
 3- Testar e Reiniciar Nginx
@@ -152,12 +152,12 @@ $ sudo service nginx start
 1. Criar certificado
 
 ```yml
-$ sudo certbot --nginx -d apiexcel.davidmarques.com.br
+$ sudo certbot --nginx -d api.cubo57.cloud
 ```
 
 2. Testar se os certificados estão com a classificação "A"
 
-https://ssllabs.com/ssltest/analyze.html?d=apiexcel.davidmarques.com.br
+https://ssllabs.com/ssltest/analyze.html?d=api.cubo57.cloud
 
 ## PM2
 
