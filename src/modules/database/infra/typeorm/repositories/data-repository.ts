@@ -124,7 +124,7 @@ export class DataRepository implements IDataRepository {
             CODCONTADEBITO: item?.CODCONTADEBITO || null,
             DEBITO: item?.DEBITO || null,
             CLASSIF_FUNCIONARIO: item?.CLASSIF_FUNCIONARIO || null,
-            VALOR: item?.VALOR || null,
+            VALOR: item?.VALOR,
           })
           const newItemSave = await _repositoryData.save(newItem)
           newItemSave.id ? result.ok++ : result.error++

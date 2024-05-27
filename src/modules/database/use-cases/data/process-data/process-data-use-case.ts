@@ -31,7 +31,6 @@ export class ProcessDataUseCase {
       excelRemoveFile(file)
       if (items.length == 0) continue
 
-
       await this._dataRepository.process(items)
     }
 
