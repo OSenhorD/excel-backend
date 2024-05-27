@@ -1,7 +1,5 @@
 import * as XLSX from "node-xlsx"
 
-import { tmpFolder } from "@config/upload"
-
 import {
   existsSync,
   mkdirSync,
@@ -10,6 +8,10 @@ import {
   rmSync,
   writeFileSync,
 } from "fs"
+
+import { tmpFolder } from "@config/upload"
+
+import { log } from "@utils/logs"
 
 export const excelBreakFile = async (filename: string) => {
   try {
@@ -57,6 +59,7 @@ export const excelBreakFile = async (filename: string) => {
   } catch (error) {
     console.log("excelBreakFile: error")
     console.log(error)
+    log("break-excel", `Erro ao quebrar o arquivo ${filename}: ${error?.message || ""}`)
   }
 }
 
