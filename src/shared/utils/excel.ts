@@ -28,9 +28,10 @@ export const excelBreakFile = async (filename: string) => {
       Object.keys(colsDate).forEach(key => colsDate[key] = cols.findIndex(c => c == key))
 
       let idx = 0
+      const total = Math.round(work.data.length / 40)
       while (work.data.length > 0) {
         if (idx % 50 == 0) {
-          console.log(`excelBreakFile: Processando quebra de arquivo ${idx}/${work.data.length}`)
+          console.log(`excelBreakFile: Processando quebra de arquivo ${idx}/${total}`)
         }
 
         idx++
@@ -38,7 +39,13 @@ export const excelBreakFile = async (filename: string) => {
         const text = `${cols.join(";")}\n` + `${content.map(ctt => {
           return ctt.map((e, idxV) => {
             const key = Object.keys(colsDate).find(key => colsDate[key] == idxV)
-            return e && key && colsDate[key] >= 0 ? e.toISOString().split("T")[0] : e
+            if (key && colsDate[key] >= 0) {
+              return typeof e == "object"
+                ? e.toISOString().split("T")[0]
+                : null
+            }
+
+            return e
           }).join(";")
         }).join("\n")}`
 
